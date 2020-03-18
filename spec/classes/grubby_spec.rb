@@ -14,7 +14,6 @@ describe 'grubby' do
       it { is_expected.to contain_class('grubby::config') }
 
       it_behaves_like 'grubby::config', os_facts
-
     end
   end
 end
