@@ -1,0 +1,48 @@
+{
+  "name": "atsonkov-grubby",
+  "version": "0.1.1",
+  "author": "atsonkov",
+  "summary": "Manage boot loader configuration with grubby",
+  "license": "Apache-2.0",
+  "source": "git@github.com:atsonkov/puppet-module-grubby.git",
+  "project_page": "https://github.com/atsonkov/puppet-module-grubby",
+  "issues_url": "https://github.com/atsonkov/puppet-module-grubby/issues",
+  "dependencies": [
+
+  ],
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "CentOS",
+      "operatingsystemrelease": [
+        "8"
+      ]
+    },
+    {
+      "operatingsystem": "OracleLinux",
+      "operatingsystemrelease": [
+        "8"
+      ]
+    },
+    {
+      "operatingsystem": "RedHat",
+      "operatingsystemrelease": [
+        "8"
+      ]
+    },
+    {
+      "operatingsystem": "Scientific",
+      "operatingsystemrelease": [
+        "8"
+      ]
+    }
+  ],
+  "requirements": [
+    {
+      "name": "puppet",
+      "version_requirement": ">= 5.0.0 < 7.0.0"
+    }
+  ],
+  "pdk-version": "1.17.0",
+  "template-url": "pdk-default#1.17.0",
+  "template-ref": "tags/1.17.0-0-gd3a4319"
+}
