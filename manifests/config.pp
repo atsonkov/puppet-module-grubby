@@ -7,9 +7,9 @@ class grubby::config {
     fail("Use of private class ${name} by ${caller_module_name}")
   }
 
-  if $grubby::grub_default_kernel {
+  if $grubby::default_kernel {
 
-    $_default_kernel = "/boot/vmlinuz-${grubby::grub_default_kernel}"
+    $_default_kernel = "/boot/vmlinuz-${grubby::default_kernel}"
 
     exec { 'set default kernel':
       command => "/sbin/grubby --set-default=${_default_kernel}",
