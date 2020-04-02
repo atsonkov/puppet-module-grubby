@@ -8,6 +8,8 @@
 # @param kernel_opts
 #   The kernel options that should be managed
 #   for the default kernel
+#   If ensure is not specified, present will be used (the other option being absent)
+#   If scope is not specified, DEFAULT will be used (valid options are also ALL or specific kernel)
 #   Example:
 #     audit:
 #       ensure: present
@@ -23,7 +25,7 @@
 #
 class grubby (
   Optional[String] $default_kernel = undef,
-  Optional[Hash]   $kernel_opts    = undef,
+  Optional[Hash]   $kernel_opts    = {},
 ) {
   contain 'grubby::config'
 }
