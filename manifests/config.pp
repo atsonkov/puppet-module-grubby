@@ -34,16 +34,16 @@ class grubby::config {
         exec { "Ensure ${_opt} kernel option is set for ${scope}":
           command => "/sbin/grubby --update-kernel=${scope} --args=${_opt}",
           path    => ['/bin','/usr/bin'],
-          unless  => "[[ \$(/sbin/grubby --info=${scope} | grep -c ^args=) == \
-                     \$(/sbin/grubby --info=${scope} | grep ^args= | grep -c ${_opt} ) ]]",
+          unless  => "test `/sbin/grubby --info=${scope} | grep -c ^args=` == \
+                     `/sbin/grubby --info=${scope} | grep ^args= | grep -c ${_opt}`",
         }
       }
       'absent': {
         exec { "Ensure ${_opt} kernel option is absent for ${scope}":
           command => "/sbin/grubby --update-kernel=${scope} --remove-args=${opt}",
           path    => ['/bin','/usr/bin'],
-          unless  => "[[ \$(/sbin/grubby --info=${scope} | grep -c ^args=) == \
-                     \$(/sbin/grubby --info=${scope} | grep ^args= | grep -vwc ${opt} ) ]]",
+          unless  => "test `/sbin/grubby --info=${scope} | grep -c ^args=` == \
+                     `/sbin/grubby --info=${scope} | grep ^args= | grep -vwc ${opt}`",
         }
       }
       default: {
