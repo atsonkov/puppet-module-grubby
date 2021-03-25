@@ -12,5 +12,26 @@ shared_examples_for 'grubby::config' do |_default_facts|
                                                                unless: '/sbin/grubby --default-kernel | grep -q /boot/vmlinuz-2.6.32-431.23.3.el6.x86_64')
       end
     end
+    context 'when kernel_opts is defined' do
+      let(:params) do
+        { kernel_opts: { 'foo' => {
+          'ensure' => 'present', 'value' => 'ball', 'scope' => 'ALL'
+        },
+                         'bar' => {
+                           'ensure' => 'present', 'value' => 10
+                         } } }
+      end
+
+      it {
+        is_expected.to contain_grubby__kernel_opt('foo').with(ensure: 'present',
+                                                              value: 'ball',
+                                                              scope: 'ALL')
+      }
+      it {
+        is_expected.to contain_grubby__kernel_opt('bar').with(ensure: 'present',
+                                                              value: 10,
+                                                              scope: 'DEFAULT')
+      }
+    end
   end
 end
