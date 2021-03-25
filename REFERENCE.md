@@ -9,6 +9,10 @@
 * [`grubby`](#grubby): Manage bootloader configuration via grubby
 * [`grubby::config`](#grubbyconfig): Applies desired configuration via grubby
 
+### Data types
+
+* [`Grubby::Kernel_Opts`](#grubbykernel_opts): Parameters for each kernel argument
+
 ## Classes
 
 ### <a name="grubby"></a>`grubby`
@@ -61,7 +65,7 @@ The following parameters are available in the `grubby` class:
 
 ##### <a name="default_kernel"></a>`default_kernel`
 
-Data type: `Optional[String]`
+Data type: `Optional[String[1]]`
 
 The kernel version to set as default in the bootloader.
 
@@ -69,7 +73,7 @@ Default value: ``undef``
 
 ##### <a name="kernel_opts"></a>`kernel_opts`
 
-Data type: `Optional[Hash]`
+Data type: `Optional[Hash[String[1], Grubby::Kernel_Opts]]`
 
 The kernel options that should be managed
 for the default kernel
@@ -93,4 +97,20 @@ Default value: `{}`
 ### <a name="grubbyconfig"></a>`grubby::config`
 
 This is a private class, that performs the necessary changes via grubby
+
+## Data types
+
+### <a name="grubbykernel_opts"></a>`Grubby::Kernel_Opts`
+
+Parameters for each kernel argument
+
+Alias of
+
+```puppet
+Struct[{
+    Optional['ensure'] => Enum['present','absent'],
+    Optional['value']  => Variant[Integer,String[1]],
+    Optional['scope']  => Variant[Enum['DEFAULT','ALL'],Pattern[/^TITLE=.+$/]],
+  }]
+```
 
