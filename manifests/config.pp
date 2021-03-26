@@ -41,7 +41,7 @@ class grubby::config {
         exec { "Ensure ${_opt} kernel option is absent for ${scope}":
           command => "/sbin/grubby --update-kernel=${scope} --remove-args=${opt}",
           path    => ['/bin','/usr/bin'],
-          unless  => "/sbin/grubby --info=${scope} | grep ^args= | test -z \"$(grep -w ${_opt}\"",
+          unless  => "/sbin/grubby --info=${scope} | grep ^args= | test -z \"$(grep -w ${opt}\"",
         }
       }
       default: {
