@@ -19,34 +19,9 @@ class grubby::config {
   }
 
   $grubby::kernel_opts.each | $opt, $fields | {
-    $scope = $fields[scope] ? {
-      Undef   => 'DEFAULT',
-      default => $fields[scope],
-    }
-
-    $_opt = $fields[value] ? {
-      Undef   => $opt,
-      default => "${opt}=${fields[value]}",
-    }
-
-    case $fields[ensure] {
-      Undef, 'present': {
-        exec { "Ensure ${_opt} kernel option is set for ${scope}":
-          command => "/sbin/grubby --update-kernel=${scope} --args=${_opt}",
-          path    => ['/bin','/usr/bin'],
-          unless  => "/sbin/grubby --info=${scope} | grep ^args= | test -z \"$(grep -wv ${_opt})\"",
-        }
-      }
-      'absent': {
-        exec { "Ensure ${opt} kernel option is absent for ${scope}":
-          command => "/sbin/grubby --update-kernel=${scope} --remove-args=${opt}",
-          path    => ['/bin','/usr/bin'],
-          unless  => "/sbin/grubby --info=${scope} | grep ^args= | test -z \"$(grep -w ${opt}\"",
-        }
-      }
-      default: {
-        fail('Incorect value of field ensure for $opt kernel option!')
-      }
+    grubby::kernel_opt{$opt:
+      *=> $fields,
     }
   }
+
 }

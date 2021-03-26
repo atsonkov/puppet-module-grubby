@@ -9,6 +9,10 @@
 * [`grubby`](#grubby): Manage bootloader configuration via grubby
 * [`grubby::config`](#grubbyconfig): Applies desired configuration via grubby
 
+### Defined types
+
+* [`grubby::kernel_opt`](#grubbykernel_opt): Applies kernel parameter configuration via grubby
+
 ### Data types
 
 * [`Grubby::Kernel_Opts`](#grubbykernel_opts): Parameters for each kernel argument
@@ -73,7 +77,7 @@ Default value: ``undef``
 
 ##### <a name="kernel_opts"></a>`kernel_opts`
 
-Data type: `Optional[Hash[String[1], Grubby::Kernel_Opts]]`
+Data type: `Optional[Hash[Pattern[/\S+/], Grubby::Kernel_Opts]]`
 
 The kernel options that should be managed
 for the default kernel
@@ -97,6 +101,76 @@ Default value: `{}`
 ### <a name="grubbyconfig"></a>`grubby::config`
 
 This is a private class, that performs the necessary changes via grubby
+
+## Defined types
+
+### <a name="grubbykernel_opt"></a>`grubby::kernel_opt`
+
+}
+
+#### Examples
+
+##### Add Single Parameter
+
+```puppet
+grubby::kernel_opt{'keyword':}
+```
+
+##### Delete a Single Parameter
+
+```puppet
+grubby::kernel_opt{'selinix':
+  ensure => 'absent',
+}
+```
+
+##### Add Parameter with Value
+
+```puppet
+grubby::kernel_opt{'memsize':
+  value  => '22',
+```
+
+#### Parameters
+
+The following parameters are available in the `grubby::kernel_opt` defined type:
+
+* [`opt`](#opt)
+* [`ensure`](#ensure)
+* [`value`](#value)
+* [`scope`](#scope)
+
+##### <a name="opt"></a>`opt`
+
+Data type: `String[1]`
+
+Kernel option
+
+Default value: `$name`
+
+##### <a name="ensure"></a>`ensure`
+
+Data type: `Enum['present', 'absent']`
+
+add or delete kernel option
+
+Default value: `'present'`
+
+##### <a name="value"></a>`value`
+
+Data type: `Optional[Variant[String[1],Integer]]`
+
+Value of kernel option
+
+Default value: ``undef``
+
+##### <a name="scope"></a>`scope`
+
+Data type: `Variant[Enum['DEFAULT','ALL'],Pattern[/^TITLE=.+$/]]`
+
+Which kernels to apply parameters to
+
+Default value: `'DEFAULT'`
 
 ## Data types
 
