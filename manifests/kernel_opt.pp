@@ -13,20 +13,26 @@
 #     value  => '22',
 # }
 #
+# @example Add a Parameter with Multiple Values 
+#  grubby::kernel_opt{'disks':
+#    value => ['vda', 'vdb'],
+#  }
+#
 # @param opt Kernel option
 # @param ensure add or delete kernel option
-# @param value Value of kernel option
+# @param value Value or values of kernel options
 # @param scope Which kernels to apply parameters to
 #
 define grubby::kernel_opt (
-  Pattern[/\S+/] $opt                                           = $name,
-  Enum['present', 'absent']                             $ensure = 'present',
-  Variant[Enum['DEFAULT','ALL'],Pattern[/^TITLE=.+$/]]  $scope  = 'DEFAULT',
-  Optional[Variant[String[1],Integer]]                  $value  =  undef,
+  Pattern[/\S+/] $opt                                                                              = $name,
+  Enum['present', 'absent']                             $ensure                                    = 'present',
+  Variant[Enum['DEFAULT','ALL'],Pattern[/^TITLE=.+$/]]  $scope                                     = 'DEFAULT',
+  Optional[Variant[Pattern[/^\S+$/], Integer, Array[Variant[Pattern[/^\S+$/], Integer],1]]] $value =  undef,
 ){
 
   $_opt = $value ? {
     Undef   => $opt,
+    Array   => "${opt}=\"${join($value,' ')}\"",
     default => "${opt}=${value}",
   }
 

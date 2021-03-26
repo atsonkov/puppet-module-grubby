@@ -131,6 +131,14 @@ grubby::kernel_opt{'memsize':
   value  => '22',
 ```
 
+##### Add a Parameter with Multiple Values
+
+```puppet
+grubby::kernel_opt{'disks':
+  value => ['vda', 'vdb'],
+}
+```
+
 #### Parameters
 
 The following parameters are available in the `grubby::kernel_opt` defined type:
@@ -142,7 +150,7 @@ The following parameters are available in the `grubby::kernel_opt` defined type:
 
 ##### <a name="opt"></a>`opt`
 
-Data type: `String[1]`
+Data type: `Pattern[/\S+/]`
 
 Kernel option
 
@@ -158,9 +166,9 @@ Default value: `'present'`
 
 ##### <a name="value"></a>`value`
 
-Data type: `Optional[Variant[String[1],Integer]]`
+Data type: `Optional[Variant[Pattern[/^\S+$/], Integer, Array[Variant[Pattern[/^\S+$/], Integer],1]]]`
 
-Value of kernel option
+Value or values of kernel options
 
 Default value: ``undef``
 
@@ -184,6 +192,7 @@ Alias of
 Struct[{
     Optional['ensure'] => Enum['present','absent'],
     Optional['value']  => Variant[Integer,String[1]],
+    Optional['value']  => Variant[Pattern[/^\S+$/], Integer, Array[Variant[Pattern[/^\S+$/], Integer],1]],
     Optional['scope']  => Variant[Enum['DEFAULT','ALL'],Pattern[/^TITLE=.+$/]],
   }]
 ```

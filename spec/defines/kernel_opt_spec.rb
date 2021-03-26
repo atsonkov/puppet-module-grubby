@@ -29,6 +29,18 @@ describe 'grubby::kernel_opt' do
             )
           end
         end
+        context 'with value set as an array' do
+          let(:params) do
+            { value: ['alpha', 'beta', 'gamma'] }
+          end
+
+          it do
+            is_expected.to contain_exec('Ensure foo="alpha beta gamma" kernel option is set for DEFAULT').with(
+              command: '/sbin/grubby --update-kernel=DEFAULT --args=foo="alpha beta gamma"',
+              unless: '/sbin/grubby --info=DEFAULT | grep ^args= | test -z "$(grep -wv foo="alpha beta gamma")"',
+            )
+          end
+        end
       end
       context 'with ensure absent parameters' do
         let(:params) do
@@ -50,6 +62,18 @@ describe 'grubby::kernel_opt' do
             is_expected.to contain_exec('Ensure foo kernel option is absent for ALL').with(
               command: '/sbin/grubby --update-kernel=ALL --remove-args=foo',
               unless: '/sbin/grubby --info=ALL | grep ^args= | test -z "$(grep -w foo)"',
+            )
+          end
+        end
+        context 'with value set as an array' do
+          let(:params) do
+            super().merge(value: ['alpha', 'beta', 'gamma'])
+          end
+
+          it do
+            is_expected.to contain_exec('Ensure foo kernel option is absent for DEFAULT').with(
+              command: '/sbin/grubby --update-kernel=DEFAULT --remove-args=foo',
+              unless: '/sbin/grubby --info=DEFAULT | grep ^args= | test -z "$(grep -w foo)"',
             )
           end
         end
