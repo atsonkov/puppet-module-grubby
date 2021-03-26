@@ -3,7 +3,7 @@
 type Grubby::Kernel_Opts = Struct[
   {
     Optional['ensure'] => Enum['present','absent'],
-    Optional['value']  => Variant[Integer,String[1]],
+    Optional['value']  => Variant[Pattern[/^\S+$/],Integer],
     Optional['scope']  => Variant[Enum['DEFAULT','ALL'],Pattern[/^TITLE=.+$/]],
   }
 ]

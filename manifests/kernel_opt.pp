@@ -19,10 +19,10 @@
 # @param scope Which kernels to apply parameters to
 #
 define grubby::kernel_opt (
-  Pattern[/\S+/] $opt                                           = $name,
+  Pattern[/^\S+$/] $opt                                           = $name,
   Enum['present', 'absent']                             $ensure = 'present',
   Variant[Enum['DEFAULT','ALL'],Pattern[/^TITLE=.+$/]]  $scope  = 'DEFAULT',
-  Optional[Variant[String[1],Integer]]                  $value  =  undef,
+  Optional[Variant[Pattern[/^\S+$/],Integer]]           $value  =  undef,
 ){
 
   $_opt = $value ? {
