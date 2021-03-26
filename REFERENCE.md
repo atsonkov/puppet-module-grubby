@@ -106,7 +106,7 @@ This is a private class, that performs the necessary changes via grubby
 
 ### <a name="grubbykernel_opt"></a>`grubby::kernel_opt`
 
-}
+Applies kernel parameter configuration via grubby
 
 #### Examples
 
@@ -129,6 +129,7 @@ grubby::kernel_opt{'selinix':
 ```puppet
 grubby::kernel_opt{'memsize':
   value  => '22',
+}
 ```
 
 #### Parameters

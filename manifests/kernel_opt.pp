@@ -11,7 +11,7 @@
 # @example Add Parameter with Value
 #   grubby::kernel_opt{'memsize':
 #     value  => '22',
-# }
+#   }
 #
 # @param opt Kernel option
 # @param ensure add or delete kernel option
