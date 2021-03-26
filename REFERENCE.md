@@ -77,7 +77,7 @@ Default value: ``undef``
 
 ##### <a name="kernel_opts"></a>`kernel_opts`
 
-Data type: `Optional[Hash[Pattern[/\S+/], Grubby::Kernel_Opts]]`
+Data type: `Optional[Hash[Pattern[/^\S+$/], Grubby::Kernel_Opts]]`
 
 The kernel options that should be managed
 for the default kernel
@@ -142,7 +142,7 @@ The following parameters are available in the `grubby::kernel_opt` defined type:
 
 ##### <a name="opt"></a>`opt`
 
-Data type: `String[1]`
+Data type: `Pattern[/^\S+$/]`
 
 Kernel option
 
@@ -158,7 +158,7 @@ Default value: `'present'`
 
 ##### <a name="value"></a>`value`
 
-Data type: `Optional[Variant[String[1],Integer]]`
+Data type: `Optional[Variant[Pattern[/^\S+$/],Integer]]`
 
 Value of kernel option
 
@@ -183,7 +183,7 @@ Alias of
 ```puppet
 Struct[{
     Optional['ensure'] => Enum['present','absent'],
-    Optional['value']  => Variant[Integer,String[1]],
+    Optional['value']  => Variant[Pattern[/^\S+$/],Integer],
     Optional['scope']  => Variant[Enum['DEFAULT','ALL'],Pattern[/^TITLE=.+$/]],
   }]
 ```

@@ -27,11 +27,14 @@ shared_examples_for 'grubby::config' do |_default_facts|
                                                               value: 'ball',
                                                               scope: 'ALL')
       }
+      it { is_expected.to contain_exec('Ensure bar=10 kernel option is set for DEFAULT') }
+
       it {
         is_expected.to contain_grubby__kernel_opt('bar').with(ensure: 'present',
                                                               value: 10,
                                                               scope: 'DEFAULT')
       }
+      it { is_expected.to contain_exec('Ensure foo=ball kernel option is set for ALL') }
     end
   end
 end

@@ -47,8 +47,8 @@
 #       ensure: absent
 #
 class grubby (
-  Optional[String[1]] $default_kernel                              = undef,
-  Optional[Hash[Pattern[/\S+/], Grubby::Kernel_Opts]] $kernel_opts = {},
+  Optional[String[1]] $default_kernel                                = undef,
+  Optional[Hash[Pattern[/^\S+$/], Grubby::Kernel_Opts]] $kernel_opts = {},
 ) {
   contain 'grubby::config'
 }

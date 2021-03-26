@@ -19,5 +19,6 @@ describe 'Grubby::Kernel_Opts' do
 
   it { is_expected.not_to allow_value('ensure' => 'foo') }
   it { is_expected.not_to allow_value('value' => true) }
+  it { is_expected.not_to allow_value('value' => 'spaced value') }
   it { is_expected.not_to allow_value('scope' => 'foo') }
 end
