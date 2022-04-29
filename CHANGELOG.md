@@ -6,7 +6,7 @@ All notable changes to this project will be documented in this file. The format 
 
 [Full Changelog](https://github.com/atsonkov/puppet-module-grubby/compare/v0.3.0...v0.3.1)
 
-### UNCATEGORIZED PRS; LABEL THEM ON GITHUB
+### Added
 
 - feat: update pdk template to 2.4.0 [\#14](https://github.com/atsonkov/puppet-module-grubby/pull/14) ([atsonkov](https://github.com/atsonkov))
 
